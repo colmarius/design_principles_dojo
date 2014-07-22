@@ -21,9 +21,10 @@ public class World {
         Map<Location, Cell> newCells = initCells();
 
         for (Location location : allWorldLocations(DEFAULT_WIDTH, DEFAULT_HEIGHT)) {
-            if (cells.get(location).willBeAlive(numberOfAliveNeighbours(location))){
-                newCells.put(location, new AliveCell());
-            }
+            Cell currentCell = cells.get(location);
+            int aliveNeighbours = numberOfAliveNeighbours(location);
+
+            newCells.put(location, currentCell.mutate(aliveNeighbours));
         }
         cells = newCells;
     }
